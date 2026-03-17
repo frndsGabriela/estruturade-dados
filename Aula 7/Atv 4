@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    int linhas, colunas;
+    int cont = 0;
+
+    printf("Digite o numero de linhas: ");
+    scanf("%d", &linhas);
+
+    printf("Digite o numero de colunas: ");
+    scanf("%d", &colunas);
+
+    int matriz[linhas][colunas];
+
+    for(i = 0; i < linhas; i++) {
+        for(j = 0; j < colunas; j++) {
+            scanf("%d", &matriz[i][j]);
+            if(matriz[i][j] % 2 == 0) {
+                cont++;
+            }
+        }
+    }
+
+    printf("Quantidade de numeros pares: %d\n", cont);
+
+    return 0;
+}

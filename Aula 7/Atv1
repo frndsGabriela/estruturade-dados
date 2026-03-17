@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    int linhas, colunas;
+
+    printf("Digite o numero de linhas: ");
+    scanf("%d", &linhas);
+
+    printf("Digite o numero de colunas: ");
+    scanf("%d", &colunas);
+
+    int matriz[linhas][colunas];
+
+    for(i = 0; i < linhas; i++) {
+        for(j = 0; j < colunas; j++) {
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    for(i = 0; i < linhas; i++) {
+        for(j = 0; j < colunas; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}

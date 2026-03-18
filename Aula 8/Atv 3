@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int m[10][10];
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            scanf("%d", &m[i][j]);
+        }
+    }
+
+    int somaPrincipal = 0, somaSecundaria = 0, somaTotal = 0;
+
+    for(int i = 0; i < n; i++) {
+        somaPrincipal += m[i][i];
+        somaSecundaria += m[i][n - 1 - i];
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            somaTotal += m[i][j];
+        }
+    }
+
+    float media = (float)somaTotal / (n * n);
+
+    int acimaMedia = 0;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(m[i][j] > media) {
+                acimaMedia++;
+            }
+        }
+    }
+
+    int simetrica = 1;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(m[i][j] != m[j][i]) {
+                simetrica = 0;
+            }
+        }
+    }
+
+    printf("Soma diagonal principal: %d\n", somaPrincipal);
+    printf("Soma diagonal secundaria: %d\n", somaSecundaria);
+    printf("Elementos acima da media: %d\n", acimaMedia);
+
+    if(simetrica)
+        printf("Matriz simetrica\n");
+    else
+        printf("Matriz nao simetrica\n");
+
+    return 0;
+}

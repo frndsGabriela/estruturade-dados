@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int main() {
+    float temp[7][3];
+
+    for(int i = 0; i < 7; i++) {
+        for(int j = 0; j < 3; j++) {
+            scanf("%f", &temp[i][j]);
+        }
+    }
+
+    float maiorMedia = -1000;
+    int diaQuente = 0;
+
+    for(int i = 0; i < 7; i++) {
+        float soma = 0;
+        for(int j = 0; j < 3; j++) {
+            soma += temp[i][j];
+        }
+        float media = soma / 3;
+        printf("Media dia %d: %.2f\n", i, media);
+
+        if(media > maiorMedia) {
+            maiorMedia = media;
+            diaQuente = i;
+        }
+    }
+
+    for(int j = 0; j < 3; j++) {
+        float soma = 0;
+        for(int i = 0; i < 7; i++) {
+            soma += temp[i][j];
+        }
+        printf("Media turno %d: %.2f\n", j, soma / 7);
+    }
+
+    printf("Dia mais quente: %d\n", diaQuente);
+
+    return 0;
+}

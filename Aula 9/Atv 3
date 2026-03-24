@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int L, C;
+    int **mat;
+
+    scanf("%d %d", &L, &C);
+
+    mat = (int**) malloc(L * sizeof(int*));
+
+    for(int i = 0; i < L; i++) {
+        mat[i] = (int*) malloc(C * sizeof(int));
+    }
+
+    int maior;
+
+    for(int i = 0; i < L; i++) {
+        for(int j = 0; j < C; j++) {
+            scanf("%d", &mat[i][j]);
+            if(i == 0 && j == 0) {
+                maior = mat[i][j];
+            } else {
+                if(mat[i][j] > maior) maior = mat[i][j];
+            }
+        }
+    }
+
+    for(int i = 0; i < L; i++) {
+        int soma = 0;
+        for(int j = 0; j < C; j++) {
+            soma += mat[i][j];
+        }
+        printf("Soma linha %d: %d\n", i, soma);
+    }
+
+    printf("Maior elemento: %d\n", maior);
+
+    for(int i = 0; i < L; i++) {
+        free(mat[i]);
+    }
+    free(mat);
+
+    return 0;
+}

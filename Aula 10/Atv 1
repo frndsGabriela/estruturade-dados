@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Produto {
+    char nome[50];
+    int quantidade;
+    float preco;
+    struct Produto* prox;
+};
+
+void inserir(struct Produto** lista) {
+    struct Produto* novo = (struct Produto*) malloc(sizeof(struct Produto));
+
+    printf("Nome do produto: ");
+    scanf(" %[^\n]", novo->nome);
+
+    printf("Quantidade: ");
+    scanf("%d", &novo->quantidade);
+
+    printf("Preco: ");
+    scanf("%f", &novo->preco);
+
+    novo->prox = *lista;
+    *lista = novo;
+
+    printf("Produto inserido!\n");
+}
+
+void listar(struct Produto* lista) {
+    if (lista == NULL) {
+        printf("Lista vazia!\n");
+        return;
+    }
+
+    while (lista != NULL) {
+        printf("\nNome: %s", lista->nome);
+        printf("\nQuantidade: %d", lista->quantidade);
+        printf("\nPreco: %.2f\n", lista->preco);
+        lista = lista->prox;
+    }
+}
+
+void remover(struct Produto** lista) {
+    char nome[50];
+    printf("Digite o nome do produto a remover: ");
+    scanf(" %[^\n]", nome);
+
+    struct Produto *atual = *lista, *anterior = NULL;
+
+    while (atual != NULL && strcmp(atual->nome, nome) != 0) {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if (atual == NULL) {
+        printf("Produto nao encontrado!\n");
+        return;
+    }
+
+    if (anterior == NULL) {
+        *lista = atual->prox;
+    } else {
+        anterior->prox = atual->prox;
+    }
+
+    free(atual);
+    printf("Produto removido!\n");
+}
+
+void atualizar(struct Produto* lista) {
+    char nome[50];
+    printf("Digite o nome do produto: ");
+    scanf(" %[^\n]", nome);
+
+    while (lista != NULL) {
+        if (strcmp(lista->nome, nome) == 0) {
+            printf("Nova quantidade: ");
+            scanf("%d", &lista->quantidade);
+            printf("Atualizado!\n");
+            return;
+        }
+        lista = lista->prox;
+    }
+
+    printf("Produto nao encontrado!\n");
+}
+
+void total(struct Produto* lista) {
+    float soma = 0;
+
+    while (lista != NULL) {
+        soma += lista->quantidade * lista->preco;
+        lista = lista->prox;
+    }
+
+    printf("Valor total da compra: R$ %.2f\n", soma);
+}
+
+int main() {
+    struct Produto* lista = NULL;
+    int opcao;
+
+    do {
+        printf("\n--- MENU ---\n");
+        printf("1 - Inserir produto\n");
+        printf("2 - Remover produto\n");
+        printf("3 - Atualizar quantidade\n");
+        printf("4 - Calcular total\n");
+        printf("5 - Listar produtos\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1: inserir(&lista); break;
+            case 2: remover(&lista); break;
+            case 3: atualizar(lista); break;
+            case 4: total(lista); break;
+            case 5: listar(lista); break;
+            case 0: printf("Saindo...\n"); break;
+            default: printf("Opcao invalida!\n");
+        }
+
+    } while (opcao != 0);
+
+    return 0;
+}
